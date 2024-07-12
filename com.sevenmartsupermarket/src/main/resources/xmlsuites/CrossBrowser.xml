@@ -1,0 +1,23 @@
+<suite name="Regressionrun" thread-count="5" parallel="tests">
+	<listeners>
+		<listener class-name="com.sevenmartsupermarket.listeners.ExtentReporter">
+
+		</listener>
+	</listeners>
+	<test name="ChromeBrowser">
+		<parameter name="browser" value="chrome"></parameter>
+		<classes>
+			<class name="com.sevenmartsupermarket.tests.DashboardTest"></class>
+
+			<class name="com.sevenmartsupermarket.tests.AdminUserTest"></class>
+		</classes>
+	</test>
+	<test name="edgeBrowser">
+		<parameter name="browser" value="edge"></parameter>
+		<classes>
+			<class name="com.sevenmartsupermarket.tests.DashboardTest"></class>
+
+			<class name="com.sevenmartsupermarket.tests.AdminUserTest"></class>
+		</classes>
+	</test>
+	</suite>

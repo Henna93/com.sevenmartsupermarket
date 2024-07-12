@@ -1,0 +1,20 @@
+<suite name="Regressionrun" >
+	<listeners>
+		<listener class-name="com.sevenmartsupermarket.listeners.ExtentReporter">
+
+		</listener>
+	</listeners>
+	<test name="HomeTest">
+		<groups>
+			<run>
+				<include name="regression"></include>
+			</run>
+		</groups>
+		<classes>
+			<class name="com.sevenmartsupermarket.tests.DashboardTest"></class>
+			<class name="com.sevenmartsupermarket.tests.AdminUserTest"></class>
+			<class name="com.sevenmartsupermarket.tests.LoginTest"></class>
+		</classes>
+	</test>
+
+</suite>

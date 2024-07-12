@@ -1,0 +1,28 @@
+<suite name="Regressionrun" thread-count="5" parallel="tests">
+	<listeners>
+		<listener class-name="com.sevenmartsupermarket.listeners.ExtentReporter">
+
+		</listener>
+	</listeners>
+	<test name="HomeTest">
+		<classes>
+			<class name="com.sevenmartsupermarket.tests.DashboardTest">
+
+			</class>
+
+			<class name="com.sevenmartsupermarket.tests.AdminUserTest">
+
+			</class>
+		</classes>
+	</test>
+
+	<test name="LoginTest">
+		<classes>
+			<class name="com.sevenmartsupermarket.tests.LoginTest">
+
+			</class>
+
+		</classes>
+
+	</test>
+</suite>
