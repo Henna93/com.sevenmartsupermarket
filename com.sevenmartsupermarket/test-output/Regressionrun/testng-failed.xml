@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [Regressionrun]">
+  <listeners>
+    <listener class-name="com.sevenmartsupermarket.listeners.ExtentReporter"/>
+  </listeners>
+  <test thread-count="5" name="HomeTest(failed)">
+    <groups>
+      <run>
+        <include name="regression"/>
+      </run>
+    </groups>
+    <classes>
+      <class name="com.sevenmartsupermarket.tests.AdminUserTest">
+        <methods>
+          <include name="launchBrowser"/>
+          <include name="verifySuccessfulUserCreation"/>
+          <include name="terminateBrowser"/>
+        </methods>
+      </class> <!-- com.sevenmartsupermarket.tests.AdminUserTest -->
+    </classes>
+  </test> <!-- HomeTest(failed) -->
+</suite> <!-- Failed suite [Regressionrun] -->

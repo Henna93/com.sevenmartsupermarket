@@ -73,6 +73,7 @@ public class SubCategoryPage {
 	public void clickOnSubCatSearchButton()
 	{
 		searchSubCategoryButton.click();
+		
 	}
 	public boolean CheckSearchItemPresent(String expectedResult)
 	{
