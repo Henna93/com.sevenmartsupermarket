@@ -136,5 +136,8 @@ public class AdminUserTest extends Base{
 		adminuserpage.createNewAdminUser(userName, "1111", "admin");
 		adminuserpage.clickOnEditLink(userName);
 		adminuserpage.editUserNameAndUpdate();
+		String actual=adminuserpage.getSuccessUpdateMsg();
+		String expected="User Updated Successfully";
+		Assert.assertTrue(actual.contains(expected));
 	}
 	}

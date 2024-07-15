@@ -44,10 +44,9 @@ public class AdminUserPage {
 	WebElement searchFieldUsername;
 	@FindBy(xpath="//table[@class='table table-bordered table-hover table-sm']//tbody//tr[1]//td[1]")
 	WebElement searchResult;
-	@FindBy(xpath="//table[@class='table table-bordered table-hover table-sm']//tbody//tr//td[1]")
-	List<WebElement> tableNames;
-	@FindBy(xpath="//button[@class='btn btn-block-sm btn-info']")
-	WebElement updateButton;
+	@FindBy(xpath="//table[@class='table table-bordered table-hover table-sm']//tbody//tr//td[1]")List<WebElement> tableNames;
+	@FindBy(xpath="//button[@class='btn btn-block-sm btn-info']")WebElement updateButton;
+	@FindBy(xpath="//div[@class='alert alert-success alert-dismissible']")WebElement successUpdateMsg;
 
 	public AdminUserPage(WebDriver driver) {
 		this.driver = driver;
@@ -132,5 +131,9 @@ public class AdminUserPage {
 	{
 		usernameField.sendKeys(" Hawwa");
 		updateButton.click();
+	}
+	public String getSuccessUpdateMsg()
+	{
+		return successUpdateMsg.getText();
 	}
 }
