@@ -6,6 +6,7 @@ import com.sevenmartsupermarket.base.Base;
 import com.sevenmartsupermarket.pages.AdminUserPage;
 import com.sevenmartsupermarket.pages.DashboardPage;
 import com.sevenmartsupermarket.pages.LoginPage;
+import com.sevenmartsupermarket.utilities.ExcelReader;
 import com.sevenmartsupermarket.utilities.GeneralUtility;
 
 
@@ -13,8 +14,7 @@ public class AdminUserTest extends Base{
 	LoginPage loginpage;
 	DashboardPage dashboardpage;
 	AdminUserPage adminuserpage;
-	
-	//ExcelReader excelreader=new ExcelReader();
+	ExcelReader excelreader=new ExcelReader();
 	
 	@Test(groups = "smoke")
 	public void verifyAdminUserHeader()
@@ -22,7 +22,6 @@ public class AdminUserTest extends Base{
 		loginpage= new LoginPage(driver);
 		dashboardpage= new DashboardPage(driver);
 		adminuserpage=new AdminUserPage(driver);
-		
 		loginpage.login();
 		dashboardpage.navigateToCard("Admin Users");
 		String actualHeader=adminuserpage.getHeader();
@@ -32,41 +31,35 @@ public class AdminUserTest extends Base{
 	}
 	@Test(groups = "regression")
 	public void verifyNewButtonisclickable()
-	
-	{
-		
-		
-		loginpage= new LoginPage(driver);
-		dashboardpage= new DashboardPage(driver);
-		adminuserpage=new AdminUserPage(driver);
-		
-		loginpage.login();
-		dashboardpage.navigateToCard("Admin Users");
-		adminuserpage.clickNewButton();
-		
-	}
-
-	@Test(groups = {"regression","smoke"})
-	public void verifySuccessfulUserCreation()
-	{
-		//excelreader.setExcelFile("Logindata","credentials");
-		//String username=excelreader.getCellData(0, 0);
-		///	System.out.println(username);
-		
+	{		
 		loginpage= new LoginPage(driver);
 		dashboardpage= new DashboardPage(driver);
 		adminuserpage=new AdminUserPage(driver);	
 		loginpage.login();
 		dashboardpage.navigateToCard("Admin Users");
 		adminuserpage.clickNewButton();
-		String userName="Henna "+GeneralUtility.get_RandomFirstName();
-		adminuserpage.createNewAdminUser(userName, "1111", "admin");
+		boolean actualResult=adminuserpage.checkForUserNameField();
+		Assert.assertTrue(actualResult);
+		}
+
+	@Test(groups = {"regression","smoke"})
+	public void verifySuccessfulUserCreation()
+	{
+		excelreader.setExcelFile("Logindata","credentials");
+		String userName=excelreader.getCellData(2, 0)+GeneralUtility.get_RandomFirstName();
+		String password=excelreader.getCellData(2, 1);
+		String userType=excelreader.getCellData(2,2);
+		loginpage= new LoginPage(driver);
+		dashboardpage= new DashboardPage(driver);
+		adminuserpage=new AdminUserPage(driver);	
+		loginpage.login();
+		dashboardpage.navigateToCard("Admin Users");
+		adminuserpage.clickNewButton();		
+		adminuserpage.createNewAdminUser(userName, password,userType);
 		String actualMessage=adminuserpage.getSuccessAlertMsg();
 		System.out.println(actualMessage);
 		String expectedMessage="User Created Successfully";
-		Assert.assertTrue(actualMessage.contains(expectedMessage));
-		
-					
+		Assert.assertTrue(actualMessage.contains(expectedMessage));	
 	}
 	
 	@Test
@@ -75,11 +68,9 @@ public class AdminUserTest extends Base{
 		loginpage= new LoginPage(driver);
 		dashboardpage= new DashboardPage(driver);
 		adminuserpage=new AdminUserPage(driver);
-		
 		loginpage.login();
 		dashboardpage.navigateToCard("Admin Users");
 		adminuserpage.clickNewButton();
-		
 		String userName="Henna "+GeneralUtility.get_RandomFirstName();
 		adminuserpage.createNewAdminUser(userName, "1111", "admin");
 		adminuserpage.clickOnDeleteLink();
@@ -95,11 +86,9 @@ public class AdminUserTest extends Base{
 		loginpage= new LoginPage(driver);
 		dashboardpage= new DashboardPage(driver);
 		adminuserpage=new AdminUserPage(driver);
-		
 		loginpage.login();
 		dashboardpage.navigateToCard("Admin Users");
 		adminuserpage.clickNewButton();
-		
 		adminuserpage.createNewAdminUser("Henna1", "1111", "admin");
 		String actualMessage=adminuserpage.getUnsuccessfulAlertMsg();
 		System.out.println(actualMessage);
@@ -128,14 +117,13 @@ public class AdminUserTest extends Base{
 		loginpage= new LoginPage(driver);
 		dashboardpage= new DashboardPage(driver);
 		adminuserpage=new AdminUserPage(driver);
-		
 		loginpage.login();
 		dashboardpage.navigateToCard("Admin Users");
 		adminuserpage.clickNewButton();
 		String userName="Henna "+GeneralUtility.get_RandomFirstName();
 		adminuserpage.createNewAdminUser(userName, "1111", "admin");
 		adminuserpage.clickOnEditLink(userName);
-		adminuserpage.editUserNameAndUpdate();
+		adminuserpage.editUserNameAndUpdate("Hawwa");
 		String actual=adminuserpage.getSuccessUpdateMsg();
 		String expected="User Updated Successfully";
 		Assert.assertTrue(actual.contains(expected));

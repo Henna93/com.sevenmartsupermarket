@@ -1,8 +1,6 @@
 <suite name="Regressionrun" thread-count="5" parallel="tests">
 	<listeners>
-		<listener class-name="com.sevenmartsupermarket.listeners.ExtentReporter">
-
-		</listener>
+		<listener class-name="com.sevenmartsupermarket.listeners.ExtentReporter"></listener>
 	</listeners>
 	<test name="ChromeBrowser">
 		<parameter name="browser" value="chrome"></parameter>
@@ -20,4 +18,4 @@
 			<class name="com.sevenmartsupermarket.tests.AdminUserTest"></class>
 		</classes>
 	</test>
-	</suite>
+</suite>

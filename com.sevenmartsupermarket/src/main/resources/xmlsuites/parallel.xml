@@ -6,22 +6,13 @@
 	</listeners>
 	<test name="HomeTest">
 		<classes>
-			<class name="com.sevenmartsupermarket.tests.DashboardTest">
-
-			</class>
-
-			<class name="com.sevenmartsupermarket.tests.AdminUserTest">
-
-			</class>
+			<class name="com.sevenmartsupermarket.tests.DashboardTest"></class>
 		</classes>
 	</test>
 
-	<test name="LoginTest">
+	<test name="AdminTest">
 		<classes>
-			<class name="com.sevenmartsupermarket.tests.LoginTest">
-
-			</class>
-
+			<class name="com.sevenmartsupermarket.tests.AdminUserTest"></class>
 		</classes>
 
 	</test>

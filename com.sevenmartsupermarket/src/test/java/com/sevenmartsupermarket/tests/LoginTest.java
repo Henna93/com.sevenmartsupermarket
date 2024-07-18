@@ -17,17 +17,13 @@ public class LoginTest extends Base {
 	DashboardPage dashboardpage;
 	ExcelReader excelreader=new ExcelReader();
 	@Test (dataProvider="credentials", dataProviderClass = DataProviderEx.class)
-	public void verifyLogin(String userName, String password, String profileName)
+	public void verifyLoginWithValidCredentials(String userName, String password, String profileName)
 	{
 		loginpage= new LoginPage(driver);
 		dashboardpage=new DashboardPage(driver);
-		
-		//loginpage.login();
 		loginpage.login(userName,password);
-		
 		String actualProfileName=dashboardpage.getProfileName();
 		System.out.println(actualProfileName);
-		
 		Assert.assertEquals(actualProfileName,profileName);
 	}
 	@Test(groups = "regression")
@@ -40,6 +36,15 @@ public class LoginTest extends Base {
 		String expectedAlertMsg="Alert!";
 		Assert.assertTrue(actualAlertMsg.contains(expectedAlertMsg));
 	}
-	
+	@Test
+	public void verifyRememberMeCheckBox()
+	{
+		loginpage= new LoginPage(driver);
+		dashboardpage= new DashboardPage(driver);
+		loginpage.clickRememberMeCheckBox();
+		Assert.assertTrue(loginpage.CheckIsRememberMeSelected());
+		
+		
+	}
 
 }

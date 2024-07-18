@@ -2,6 +2,7 @@ package com.sevenmartsupermarket.tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import com.sevenmartsupermarket.base.Base;
 import com.sevenmartsupermarket.pages.DashboardPage;
@@ -12,6 +13,7 @@ public class SubCategoryTest extends Base{
 	LoginPage loginpage;
 	DashboardPage dashboardpage;
 	SubCategoryPage subcategorypage;
+	SoftAssert softassert=new SoftAssert();
 	
 	@Test
 	public void verifySubCategoryPageHeader()
@@ -35,11 +37,15 @@ public class SubCategoryTest extends Base{
 		subcategorypage=new SubCategoryPage(driver);
 		loginpage.login();
 		dashboardpage.navigateToCard("Sub Category");
-		subcategorypage.clickOnNewButton();
-		subcategorypage.selectCategory("Vegetables");
-		subcategorypage.enterSubCategory();
+		subcategorypage.createNewSubCategory("Vegetables", "Capsicum");
 		subcategorypage.chooseFileImg();
-		//subcategorypage.clickOnSaveButton();
+		subcategorypage.clickOnSaveButton();
+		String actualAlert=subcategorypage.getSuccessMsgNewSubCategory();
+		System.out.println(actualAlert);
+		String expectedAlert="Sub Category Created Successfully";
+		softassert.assertTrue(actualAlert.contains(expectedAlert));
+		subcategorypage.deleteSubCategory();
+		
 	}
 	
 	@Test
@@ -50,12 +56,36 @@ public class SubCategoryTest extends Base{
 		subcategorypage=new SubCategoryPage(driver);
 		loginpage.login();
 		dashboardpage.navigateToCard("Sub Category");
-		subcategorypage.clickOnSearchButton();
-		subcategorypage.selectSearchCategory("Vegetables");
-		subcategorypage.enterSearchSubCatField();
-		subcategorypage.clickOnSubCatSearchButton();
-		boolean actual=subcategorypage.CheckSearchItemPresent("Onion");
+		subcategorypage.checkSearchButton("Vegetables", "onion");
+		boolean actual=subcategorypage.checkSearchItemPresent("Onion");
 		Assert.assertTrue(actual);
 		
 		}
+	@Test
+	public void verifyUnsuccessfulDuplicateSubCategoryCreation()
+	{
+		loginpage= new LoginPage(driver);
+		dashboardpage= new DashboardPage(driver);
+		subcategorypage=new SubCategoryPage(driver);
+		loginpage.login();
+		dashboardpage.navigateToCard("Sub Category");
+		subcategorypage.createDuplicateSubCategory("Vegetables", "onion");
+		boolean actual=subcategorypage.checkAlreadyExistAlertMsg("Sub Category already exists.");
+		Assert.assertTrue(actual);
+	}
+	
+	@Test
+	public void verifyAdminIsAbleToDeleteSubCategory()
+	{
+		loginpage= new LoginPage(driver);
+		dashboardpage= new DashboardPage(driver);
+		subcategorypage=new SubCategoryPage(driver);
+		loginpage.login();
+		dashboardpage.navigateToCard("Sub Category");
+		subcategorypage.createNewSubCategory("Vegetables", "Radish");
+		subcategorypage.clickOnSaveButton();
+		subcategorypage.deleteSubCategory();
+		boolean actualAlert=subcategorypage.checkDeleteSuccessAlertMsg("Sub Category Deleted Successfully");
+		Assert.assertTrue(actualAlert);
+	}
 }

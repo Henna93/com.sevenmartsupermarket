@@ -11,64 +11,79 @@ import org.openqa.selenium.support.PageFactory;
 import com.sevenmartsupermarket.constants.Constants;
 
 public class LoginPage {
-WebDriver driver;
+	WebDriver driver;
+	Properties properties = new Properties();
 
-Properties properties=new Properties();
+	@FindBy(xpath = "//input[@name='username']")
+	private WebElement userNameField;
+	@FindBy(xpath = "//input[@name='password']")
+	private WebElement passwordField;
+	@FindBy(xpath = "//button[contains(text(),'Sign In')]")
+	private WebElement signInButton;
+	@FindBy(xpath = "//div[@class='alert alert-danger alert-dismissible']")
+	private WebElement alertMessage;
+	@FindBy(xpath = "//label[@for='remember']")
+	private WebElement rememberCheckbox;
+	@FindBy(xpath = "//input[@type='checkbox']")
+	private WebElement checkBox;
 
-@FindBy(xpath = "//input[@name='username']")
-WebElement userNameField;
-@FindBy(xpath = "//input[@name='password']")
-WebElement passwordField;
-@FindBy(xpath ="//button[contains(text(),'Sign In')]")
-WebElement signInButton;
-@FindBy(xpath ="//div[@class='alert alert-danger alert-dismissible']")
-WebElement alertMessage;
+	public LoginPage(WebDriver driver) {
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
 
-public LoginPage(WebDriver driver)
-{
-	this.driver = driver;
-	PageFactory.initElements(driver, this);
-	
-	try {
-		FileInputStream fis=new FileInputStream(Constants.CONFIG_FILE_PATH);
-		properties.load(fis);
-		
+		try {
+			FileInputStream fis = new FileInputStream(Constants.CONFIG_FILE_PATH);
+			properties.load(fis);
+
+			}
+		catch (Exception e) {
+
+			e.printStackTrace();
+			}
 	}
-	catch (Exception e) {
-		
-		e.printStackTrace();
+
+	public void enterUserName(String userName) {
+		userNameField.sendKeys(userName);
 	}
-}
-public void enterUserName(String userName)
-{
-	userNameField.sendKeys(userName);
-}
-public void enterPassword(String password)
-{
-	passwordField.sendKeys(password);
-}
-public void clickOnSignInButton()
-{
-	signInButton.click();
-}
-public void login(String userName, String password)
-{
-	enterUserName(userName);
-	enterPassword(password);
-	clickOnSignInButton();
-}
-public void login()
-{
-	String userName=properties.getProperty("userName");
-	String password=properties.getProperty("password");
-	enterUserName(userName);
-	enterPassword(password);
-	clickOnSignInButton();
-}
-public String getAlertMessage()
-{
-	
-	String message=alertMessage.getText();
-	return message;
-}
+
+	public void enterPassword(String password) {
+		passwordField.sendKeys(password);
+	}
+
+	public void clickOnSignInButton() {
+		signInButton.click();
+	}
+
+	public void login(String userName, String password) {
+		enterUserName(userName);
+		enterPassword(password);
+		clickOnSignInButton();
+	}
+
+	public void login() {
+		String userName = properties.getProperty("userName");
+		String password = properties.getProperty("password");
+		enterUserName(userName);
+		enterPassword(password);
+		clickOnSignInButton();
+	}
+
+	public String getAlertMessage() {
+
+		String message = alertMessage.getText();
+		return message;
+	}
+
+	public void clickRememberMeCheckBox() {
+		String userName = properties.getProperty("userName");
+		String password = properties.getProperty("password");
+		enterUserName(userName);
+		enterPassword(password);
+		rememberCheckbox.click();
+	}
+
+	public boolean CheckIsRememberMeSelected() {
+		return checkBox.isSelected();
+	}
+
 }

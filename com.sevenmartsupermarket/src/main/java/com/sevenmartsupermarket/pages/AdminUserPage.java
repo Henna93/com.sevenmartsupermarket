@@ -8,6 +8,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
+import com.github.dockerjava.api.model.Driver;
 import com.sevenmartsupermarket.utilities.GeneralUtility;
 import com.sevenmartsupermarket.utilities.PageUtility;
 
@@ -33,20 +35,23 @@ public class AdminUserPage {
 	@FindBy(xpath = "//table[@class='table table-bordered table-hover table-sm']//tbody//tr[1]//td[5]//a[3]")
 	private WebElement deleteLink;
 	@FindBy(xpath = "//div[@class='alert alert-success alert-dismissible']")
-	WebElement deleteAlertMsg;
+	private WebElement deleteAlertMsg;
 	@FindBy(xpath = "//div[@class='alert alert-danger alert-dismissible']")
-	WebElement unsuccessAlertMsg;
+	private WebElement unsuccessAlertMsg;
 	@FindBy(xpath="//a[@class='btn btn-rounded btn-primary']")
-	WebElement searchField;
+	private WebElement searchField;
 	@FindBy(xpath="//button[@name='Search']")
-	WebElement searchButton;
+	private WebElement searchButton;
 	@FindBy(xpath="//input[@id='un']")
-	WebElement searchFieldUsername;
+	private WebElement searchFieldUsername;
 	@FindBy(xpath="//table[@class='table table-bordered table-hover table-sm']//tbody//tr[1]//td[1]")
-	WebElement searchResult;
-	@FindBy(xpath="//table[@class='table table-bordered table-hover table-sm']//tbody//tr//td[1]")List<WebElement> tableNames;
-	@FindBy(xpath="//button[@class='btn btn-block-sm btn-info']")WebElement updateButton;
-	@FindBy(xpath="//div[@class='alert alert-success alert-dismissible']")WebElement successUpdateMsg;
+	private WebElement searchResult;
+	@FindBy(xpath="//table[@class='table table-bordered table-hover table-sm']//tbody//tr//td[1]")
+	private List<WebElement> tableNames;
+	@FindBy(xpath="//button[@class='btn btn-block-sm btn-info']")
+	private WebElement updateButton;
+	@FindBy(xpath="//div[@class='alert alert-success alert-dismissible']")
+	private WebElement successUpdateMsg;
 
 	public AdminUserPage(WebDriver driver) {
 		this.driver = driver;
@@ -59,6 +64,10 @@ public class AdminUserPage {
 
 	public void clickNewButton() {
 		newButton.click();
+	}
+	public boolean checkForUserNameField()
+	{
+		return usernameField.isDisplayed();
 	}
 
 	public void enterUserName(String userName) {
@@ -127,13 +136,14 @@ public class AdminUserPage {
 		WebElement editLink=driver.findElement(By.xpath("//table[@class='table table-bordered table-hover table-sm']//tbody//tr["+index+"]//td[5]//a[2]"));
 		editLink.click();
 	}
-	public void editUserNameAndUpdate()
+	public void editUserNameAndUpdate(String newName)
 	{
-		usernameField.sendKeys(" Hawwa");
+		usernameField.sendKeys(newName);
 		updateButton.click();
 	}
 	public String getSuccessUpdateMsg()
 	{
 		return successUpdateMsg.getText();
 	}
+	
 }
