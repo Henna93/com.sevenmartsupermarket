@@ -54,18 +54,20 @@ public class LoginPage {
 		signInButton.click();
 	}
 
-	public void login(String userName, String password) {
+	public DashboardPage login(String userName, String password) {
 		enterUserName(userName);
 		enterPassword(password);
 		clickOnSignInButton();
+		return new DashboardPage(driver);
 	}
 
-	public void login() {
+	public DashboardPage login() {
 		String userName = properties.getProperty("userName");
 		String password = properties.getProperty("password");
 		enterUserName(userName);
 		enterPassword(password);
 		clickOnSignInButton();
+		return new DashboardPage(driver);
 	}
 
 	public String getAlertMessage() {

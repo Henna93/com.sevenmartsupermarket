@@ -4,6 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import com.sevenmartsupermarket.base.Base;
+import com.sevenmartsupermarket.constants.Constants;
 import com.sevenmartsupermarket.listeners.RetryAnalyzer;
 import com.sevenmartsupermarket.pages.DashboardPage;
 import com.sevenmartsupermarket.pages.LoginPage;
@@ -16,33 +17,28 @@ public class DashboardTest extends Base{
 	public void verifyWebsiteName()
 	{
 		loginpage= new LoginPage(driver);
-		dashboardpage= new DashboardPage(driver);
-		loginpage.login();
+		dashboardpage=loginpage.login();
 		String actualHeader=dashboardpage.getWebSiteHeader();
-		System.out.println(actualHeader);
-		String expectedHeader="7rmart supermarket";
-		Assert.assertEquals(actualHeader, expectedHeader);
+		Assert.assertEquals(actualHeader, Constants.WEBSITE_HEADER);
 	}
 	@Test(retryAnalyzer = RetryAnalyzer.class)
 	public void verifyAdminIsAbleToNavigateToCards()
 	{
 		loginpage= new LoginPage(driver);
-		dashboardpage= new DashboardPage(driver);
-		loginpage.login();
+		dashboardpage=loginpage.login();
 		dashboardpage.navigateToCard("Manage Pages");
-		boolean actual=dashboardpage.checkForNewButton("New");
-		Assert.assertTrue(actual);
+		boolean actualResult=dashboardpage.checkForNewButton();
+		Assert.assertTrue(actualResult);
 		
 	}
 	@Test
 	public void verifyUserIsAbleToLogOutSuccessfully()
 	{
 		loginpage= new LoginPage(driver);
-		dashboardpage= new DashboardPage(driver);
-		loginpage.login();
+		dashboardpage=loginpage.login();
 		dashboardpage.clickOnLogout();
-		boolean actualMsg=dashboardpage.checkSignInMsg("Sign in to start your session");
-		Assert.assertTrue(actualMsg);
+		boolean actualSignInMsg=dashboardpage.checkSignInMsg(Constants.SIGN_IN_MSG);
+		Assert.assertTrue(actualSignInMsg);
 	}
 
 }

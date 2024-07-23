@@ -60,10 +60,37 @@ public class DashboardPage {
 		}
 		dashBoardCards.get(index).click();
 	}
-	public boolean checkForNewButton(String expectedResult)
+	public AdminUserPage navigateToAdminUserCard() {
+		int index = 0;
+		for (index = 0; index < cardNames.size(); index++) {
+			String infoName = cardNames.get(index).getText();
+
+			if (infoName.equalsIgnoreCase("Admin Users")) {
+				break;
+			}
+
+		}
+		dashBoardCards.get(index).click();
+		return new AdminUserPage(driver);
+	}
+	
+	public SubCategoryPage navigateToSubCategoryCard() {
+		int index = 0;
+		for (index = 0; index < cardNames.size(); index++) {
+			String infoName = cardNames.get(index).getText();
+
+			if (infoName.equalsIgnoreCase("Sub Category")) {
+				break;
+			}
+
+		}
+		dashBoardCards.get(index).click();
+		return new SubCategoryPage(driver);
+	}
+	
+	public boolean checkForNewButton()
 	{
-		
-		return generalutility.is_TextPresent(newButton, expectedResult);
+		return newButton.isDisplayed();
 	}
 	public void clickOnLogout()
 	{

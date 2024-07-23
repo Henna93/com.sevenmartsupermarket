@@ -15,6 +15,7 @@ public class WaitUtility {
 	{
 		this.driver = driver;
 	}
+	
  public void waitForElementToBeClickable(WebElement element, long time)
  {
 	  wait=new WebDriverWait(driver,Duration.ofSeconds(time));
@@ -24,6 +25,11 @@ public class WaitUtility {
 	{
 		wait=new WebDriverWait(driver,Duration.ofSeconds(time));
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
+	}
+ public void waitForElementtobeInvisible(WebElement element,long time)
+	{
+	 	wait=new WebDriverWait(driver,Duration.ofSeconds(time));
+		wait.until(ExpectedConditions.invisibilityOf(element));
 	}
  
 }

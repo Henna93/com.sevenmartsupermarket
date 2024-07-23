@@ -2,14 +2,11 @@ package com.sevenmartsupermarket.pages;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
-import com.github.dockerjava.api.model.Driver;
 import com.sevenmartsupermarket.utilities.GeneralUtility;
 import com.sevenmartsupermarket.utilities.PageUtility;
 
@@ -116,9 +113,9 @@ public class AdminUserPage {
 		searchFieldUsername.sendKeys(userName);
 		searchButton.click();
 	}
-	public String getSearchResult()
+	public boolean getSearchResult(String expectedResult)
 	{
-		return searchResult.getText();
+		return generalutility.is_TextPresent(searchResult, expectedResult);
 	}
 	public void clickOnEditLink(String userName)
 	{
